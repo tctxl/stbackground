@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="stbackground-run:war">
+    <output-path>$PROJECT_DIR$/stbackground-run/target</output-path>
+    <root id="archive" name="stbackground-run-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="stbackground-run:war exploded" />
+    </root>
+  </artifact>
+</component>

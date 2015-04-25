@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" build-on-make="true" name="stbackground-debug exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/stbackground_debug_exploded</output-path>
+    <root id="root" />
+  </artifact>
+</component>
