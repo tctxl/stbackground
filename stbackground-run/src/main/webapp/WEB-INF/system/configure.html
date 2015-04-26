@@ -1,0 +1,46 @@
+<%
+include("header.html"){}
+%>
+
+<table class="table table-bordered table-striped" id="datatable">
+    <thead>
+    <tr>
+        <%
+            var width = '20%';
+            if(fields.~size>5){ width = '300'; }
+
+            for(field in fields){
+                if(fieldLP.index == 1){
+                    print('<th data-width="100">'+field+'</th>');
+                }else{
+                    print('<th class="flex-col" data-width="'+width+'">'+field+'</th>');
+                }
+            }
+        %>
+
+    </tr>
+    </thead>
+    <tbody>
+    <%
+    for(configure in configures){
+        print('<tr>');
+        for(pName in pNames){
+            print('<td>'+configure[pName]+'</td>');
+        }
+        print('</tr>');
+    }
+    %>
+    </tbody>
+</table>
+<script>
+
+    $('#datatable').datatable({
+        checkable: true,
+        sortable: true,
+        flexHeadDrag:true,
+        minFixedLeftWidth: 100
+    });
+</script>
+<%
+include("footer.html"){}
+%>

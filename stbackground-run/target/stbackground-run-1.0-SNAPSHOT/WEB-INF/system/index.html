@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <base href="http://192.168.11.214:8080/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Seed Background Templates">
+    <meta name="author" content="Jeffrey">
+    <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Expires" CONTENT="0">
+
+    <title>Seed Background Templates</title>
+
+    <link href="ext/zui/css/zui.min.css" rel="stylesheet">
+    <link href="ext/zui/css/doc.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="ext/assets/html5shiv.js"></script>
+    <script src="ext/assets/respond.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="row ">
+<div class="col-md-4 col-md-offset-4 panel-body" id="login">
+    <div class="panel panel-pure">
+        <div class="panel-heading"><h2>Seed 后台管理</h2></div>
+        <div class="panel-body">
+            <form method="post" action="login/users.auth" method="post">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="icon-user" style="padding: 1px;"></i></span>
+                    <input type="text" name="username" class="form-control" placeholder="用户名">
+                </div>
+                <br/>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="icon-key"></i></span>
+                    <input type="password" name="password" class="form-control" placeholder="密码">
+                </div>
+                <br/>
+
+                <div class="clearfix"></div>
+                <p><button type="submit" class="btn btn-primary">Login</button></p>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

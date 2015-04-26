@@ -29,11 +29,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="pack" target="1.6" />
-      <module name="run" target="1.6" />
-      <module name="stbackground" target="1.5" />
-      <module name="stbackground-pack" target="1.5" />
-      <module name="stbackground-run" target="1.5" />
+      <module name="stbackground" target="1.6" />
+      <module name="stbackground-pack" target="1.6" />
+      <module name="stbackground-run" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

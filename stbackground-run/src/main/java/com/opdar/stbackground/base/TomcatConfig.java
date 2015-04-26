@@ -1,7 +1,13 @@
 package com.opdar.stbackground.base;
 
+import com.opdar.framework.db.impl.BaseDatabase;
+import com.opdar.framework.db.interfaces.EnumValue;
+import com.opdar.framework.db.interfaces.IDao;
 import com.opdar.framework.server.base.DefaultConfig;
 import com.opdar.framework.utils.Utils;
+import com.opdar.framework.web.common.Context;
+import com.opdar.stbackground.common.Configure;
+import com.opdar.stbackground.utils.CacheUtils;
 
 import java.util.Properties;
 
@@ -30,7 +36,9 @@ public class TomcatConfig extends DefaultConfig {
 
     @Override
     public void onCreate() {
-        System.out.println("onCreate!");
+        BaseDatabase database = Context.get(BaseDatabase.class);
+        IDao<Configure> dao = database.getDao(Configure.class);
+        dao.SELECT().END();
     }
 
     @Override
