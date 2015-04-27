@@ -1,8 +1,15 @@
 package com.opdar.stbackground.utils;
 
+import com.opdar.framework.db.impl.BaseDatabase;
+import com.opdar.framework.db.impl.FieldModel;
+import com.opdar.framework.db.interfaces.IDao;
+import com.opdar.framework.web.common.Context;
+import com.opdar.framework.web.interfaces.View;
+import com.opdar.stbackground.beans.ConfigureEntity;
+import com.opdar.stbackground.customs.SystemBeetlView;
+
 import java.security.MessageDigest;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Jeffrey on 2015/4/26.
@@ -15,6 +22,27 @@ public class Utils {
         Map<String,Object> map = new HashMap<String, Object>();
         map.put(key, value);
         return map;
+    }
+    public static View executeTableView(Class<?> tableClz){
+        BaseDatabase database = Context.get(BaseDatabase.class);
+        IDao<?> dao = database.getDao(tableClz);
+        List<?> datas = dao.SELECT().END().findAll();
+        Map<String, FieldModel> map = dao.getFieldNames();
+        return Utils.executeTableView(map,datas);
+    }
+
+    public static View executeTableView(Map<String, FieldModel> map,Object datas){
+        List<String> fields = new LinkedList<String>();
+        List<String> pNames = new LinkedList<String>();
+        for (Iterator<Map.Entry<String, FieldModel>> it = map.entrySet().iterator();it.hasNext();){
+            Map.Entry<String, FieldModel> entry = it.next();
+            fields.add(entry.getValue().getMapping());
+            pNames.add(entry.getKey());
+        }
+        Map<String, Object> result = Utils.productDataModels("tables",datas);
+        result.put("fields",fields);
+        result.put("pNames",pNames);
+        return new SystemBeetlView("tables.html",result);
     }
 
     public final static String md5(String s) {

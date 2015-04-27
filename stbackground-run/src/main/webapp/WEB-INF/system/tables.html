@@ -22,10 +22,10 @@ include("header.html"){}
     </thead>
     <tbody>
     <%
-    for(configure in configures){
+    for(table in tables){
         print('<tr>');
         for(pName in pNames){
-            print('<td>'+configure[pName]+'</td>');
+            print('<td>'+table[pName]+'</td>');
         }
         print('</tr>');
     }

@@ -43,5 +43,6 @@ public class TomcatConfig extends DefaultConfig {
 
     @Override
     public void onDestory() {
+        System.out.println("ondestory");
     }
 }
