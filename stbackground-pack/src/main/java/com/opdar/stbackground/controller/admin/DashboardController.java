@@ -58,6 +58,11 @@ public class DashboardController {
     }
 
     @Router
+    public View rules(){
+        return Utils.executeTableView(RuleEntity.class);
+    }
+
+    @Router
     public View users(){
         BaseDatabase database = Context.get(BaseDatabase.class);
         IDao<?> dao = database.getDao(UserEntity.class);

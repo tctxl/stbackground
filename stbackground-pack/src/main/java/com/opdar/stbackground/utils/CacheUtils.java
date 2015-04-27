@@ -1,11 +1,14 @@
 package com.opdar.stbackground.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.opdar.stbackground.common.Configure;
 import org.nutz.ssdb4j.SSDBs;
 import org.nutz.ssdb4j.spi.Response;
 import org.nutz.ssdb4j.spi.SSDB;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Created by Jeffrey on 2015/4/25.
@@ -17,7 +20,7 @@ public class CacheUtils {
     static SSDB ssdb = null;
 
     static {
-        ssdb = SSDBs.pool("127.0.0.1", 8888, 2000, null);
+        ssdb = SSDBs.pool(Configure.SSDB_IP.getValue(), Integer.valueOf(Configure.SSDB_PORT.getValue()), 2000, null);
         if(!ssdb.ping().ok()){
             System.out.println("SSDB 连接失败");
         }
@@ -52,7 +55,12 @@ public class CacheUtils {
         return ssdb.expire(key, timeout);
     }
 
-    public static <T>T derializable(String content,Type type){
+    public static <T>Object derializable(String content, Type type){
+        if(type instanceof ParameterizedTypeImpl){
+            if(List.class.isAssignableFrom(((ParameterizedTypeImpl) type).getRawType())){
+                return JSON.parseArray(content, (Class<T>) ((ParameterizedTypeImpl) type).getActualTypeArguments()[0]);
+            }
+        }
         return JSON.parseObject(content, type);
     }
 

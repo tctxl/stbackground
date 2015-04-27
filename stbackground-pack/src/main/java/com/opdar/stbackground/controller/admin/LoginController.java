@@ -27,11 +27,12 @@ public class LoginController {
         IDao<UserEntity> userEntityIDao = database.getDao(UserEntity.class);
         String simpleName = userEntityIDao.getSimpleTableName(UserEntity.class);
         userEntityIDao.setFilter(MapperFilter.LOGIN).addMapper("TL.LEVEL AS LEVEL");
-        UserEntity user = userEntityIDao.SELECT()
+        password = Utils.md5(password);
+        UserEntity user = userEntityIDao.addMapper("TL.LEVEL AS LEVEL").SELECT()
                 .JOIN(Join.LEFT, "t_level TL", String.format("%s.LEVEL_ID = TL._ID", simpleName))
                 .WHERE("USER_NAME", username)
                 .AND()
-                .IS("USER_PWD", Utils.md5(password))
+                .IS("USER_PWD", password)
                 .WhereEND().END().findOne();
         if(user != null){
             AuthManagement.login(user);

@@ -2,6 +2,8 @@ package com.opdar.stbackground.beans;
 
 import com.opdar.framework.db.anotations.Factor;
 import com.opdar.framework.db.anotations.Field;
+import com.opdar.stbackground.auth.AuthInterceptor;
+import com.opdar.stbackground.auth.AuthManagement;
 
 import java.util.ArrayList;
 
@@ -26,15 +28,18 @@ public class RuleEntity {
     private Integer type;
     @Field("RULE_ACTION")
     private String action;
-    @Field("ACCESSORY")
     private String accessory;
-    @Field("ACCESSORY_NAME")
     private String accessoryName;
-    @Field("MODULE")
     private String module;
-    @Field("DISABLE")
     private Integer disable;
-    @Factor(value = "SELECT *FROM T_RULE TR WHERE #{id} = TR.RULE_PARENT AND TR._ID <> TR.RULE_PARENT ORDER BY TR.SEQ ASC",cls=RuleEntity.class)
+    private String level;
+
+    /**
+     * 可用@Factor注解实现级联查询，但不推荐使用
+     * 例：@Factor(value = "SELECT *FROM T_RULE TR WHERE #{id} = TR.RULE_PARENT AND TR._ID <> TR.RULE_PARENT ORDER BY TR.SEQ ASC",cls=RuleEntity.class)
+     * 就能查出子级菜单啦
+     */
+    @Factor(value = "SELECT *FROM T_RULE TR LEFT JOIN T_RULE_LEVEL TRL ON TRL.RULE_ID = TR._ID LEFT JOIN T_LEVEL TL ON TL._ID = TRL.LEVEL_ID WHERE TL. LEVEL <= #{level} AND #{id} = TR.RULE_PARENT AND TR._ID <> TR.RULE_PARENT AND TR. DISABLE = '0' ORDER BY TR.SEQ ASC",cls=RuleEntity.class)
     private ArrayList<RuleEntity> rules = new ArrayList<RuleEntity>();
 
     public ArrayList<RuleEntity> getRules() {
@@ -131,5 +136,13 @@ public class RuleEntity {
 
     public void setDisable(Integer disable) {
         this.disable = disable;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 }

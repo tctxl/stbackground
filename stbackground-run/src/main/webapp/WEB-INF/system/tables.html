@@ -2,6 +2,53 @@
 include("header.html"){}
 %>
 
+<link href="ext/assets/chosen/css/chosen.css" rel="stylesheet">
+<script src="ext/assets/chosen/js/chosen.jquery.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.search-options').chosen({search_contains: true, no_results_text:'Oops, nothing found!'});
+        $('#select').collapse();
+    });
+</script>
+<div class="btn-group">
+    <button type="button" class="btn btn-primary"><i class="icon-plus">新增</i></button>
+    <button type="button" class="btn btn-primary"><i class="icon-trash">删除</i></button>
+    <button type="button" class="btn btn-primary"><i class="icon-undo">修改</i></button>
+    <button type="button" class="btn btn-primary"  data-toggle="collapse" data-target="#select"><i class="icon-search">查询</i></button>
+</div>
+<br/>
+<br/>
+<div id="select" style="clear: both;border-radius: 0px;" class="collapse in">
+    <div class="panel panel-primary">
+        <div class="panel-heading">查询窗口</div>
+        <div class="panel-body">
+            <div class="alert alert-info with-icon">
+                <i class="icon-info-sign"></i>
+                <div class="content">在<strong>下方输入框</strong>中搜索，默认为模糊查询，如需要精确查询，请勾选末尾处的<strong>"精确查询"</strong>。</div>
+            </div>
+    <select data-placeholder="点击选择搜索条件" style="width:100%;" multiple class="search-options">
+    <option value=""></option>
+    <%
+    for(field in fields){
+        print('<option>'+field+'</option>');
+    }
+    %>
+        <option id="vague">精确查询</option>
+</select>
+    <br/>
+    <br/>
+
+    <div class="input-group" style="width: 100%;">
+        <input type="text" placeholder="请输入查询内容" class="form-control">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">查询</button>
+      </span>
+    </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">表内容</div>
 <table class="table table-bordered table-striped" id="datatable">
     <thead>
     <tr>
@@ -25,15 +72,16 @@ include("header.html"){}
     for(table in tables){
         print('<tr>');
         for(pName in pNames){
-            print('<td>'+table[pName]+'</td>');
+            print('<td style="word-wrap:break-word;">'+table[pName]+'</td>');
         }
         print('</tr>');
     }
     %>
     </tbody>
 </table>
-<script>
 
+</div>
+<script>
     $('#datatable').datatable({
         checkable: true,
         sortable: true,
@@ -41,6 +89,14 @@ include("header.html"){}
         minFixedLeftWidth: 100
     });
 </script>
+<style>
+    .datatable{
+        margin-bottom: 0px;
+    }
+    .chosen-container{
+        border-radius: 0px;
+    }
+</style>
 <%
 include("footer.html"){}
 %>

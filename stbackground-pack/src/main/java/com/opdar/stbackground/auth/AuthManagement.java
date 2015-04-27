@@ -47,7 +47,7 @@ public class AuthManagement {
         if(token != null) {
             Response response = CacheUtils.getCache(Constants.CacheKey.USER(token.toString()));
             if(response.ok()){
-                return CacheUtils.derializable(response.asString(), UserEntity.class);
+                return (UserEntity) CacheUtils.derializable(response.asString(), UserEntity.class);
             }
         }
         return null;
@@ -58,7 +58,7 @@ public class AuthManagement {
         if(userEntity != null){
             Response response = CacheUtils.getCache(Constants.CacheKey.USER_RULE(userEntity.getTid()));
             if(response.ok()){
-                return CacheUtils.derializable(response.asString(), new TypeReference<List<RuleEntity>>(){}.getType());
+                return (List<RuleEntity>) CacheUtils.derializable(response.asString(), new TypeReference<List<RuleEntity>>(){}.getType());
             }else{
                 return rebuildUserRule();
             }
@@ -81,14 +81,14 @@ public class AuthManagement {
             String simpleName = dao.getSimpleTableName(RuleEntity.class);
             IWhere where = new BaseWhere();
             where.LTIS("TL.LEVEL", String.valueOf(userEntity.getLevel()));
-            where.AND().IS(simpleName.concat("._ID"), "${" .concat(simpleName).concat(".RULE_PARENT").concat("}"));
+            where.AND().IS(simpleName.concat("._ID"), "${".concat(simpleName).concat(".RULE_PARENT").concat("}"));
             where.AND().IS(simpleName + ".DISABLE", "0");
-            dao.setFilter(MapperFilter.RULE).SELECT()
-                    .JOIN(Join.LEFT,"T_RULE_LEVEL TRL",String.format("TRL.RULE_ID = %s._ID",simpleName))
+            dao.setFilter(MapperFilter.RULE).addMapper(String.format("'%s' AS LEVEL",userEntity.getLevel())).SELECT()
+                    .JOIN(Join.LEFT, "T_RULE_LEVEL TRL", String.format("TRL.RULE_ID = %s._ID", simpleName))
                     .JOIN(Join.LEFT,"T_LEVEL TL","TL._ID = TRL.LEVEL_ID")
                     .WHERE(where).ORDERBY(new BaseWhere.Order("SEQ", BaseWhere.Order.OrderType.ASC)).WhereEND().END();
             List<RuleEntity> rules = dao.findAll();
-            CacheUtils.cache(Constants.CacheKey.USER_RULE(userEntity.getTid()),rules,Constants.Cache.USER_RULE_TIMEOUT);
+            CacheUtils.cache(Constants.CacheKey.USER_RULE(userEntity.getTid()), rules, Constants.Cache.USER_RULE_TIMEOUT);
             return rules;
         }
         return null;
