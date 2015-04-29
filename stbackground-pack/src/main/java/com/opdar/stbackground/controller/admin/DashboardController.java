@@ -1,27 +1,21 @@
 package com.opdar.stbackground.controller.admin;
 
-import com.opdar.framework.db.impl.BaseDaoImpl;
 import com.opdar.framework.db.impl.BaseDatabase;
 import com.opdar.framework.db.impl.FieldModel;
 import com.opdar.framework.db.interfaces.IDao;
 import com.opdar.framework.web.anotations.Before;
 import com.opdar.framework.web.anotations.Controller;
-import com.opdar.framework.web.anotations.Injection;
 import com.opdar.framework.web.anotations.Router;
 import com.opdar.framework.web.common.Context;
 import com.opdar.framework.web.interfaces.View;
-import com.opdar.framework.web.views.HtmlView;
-import com.opdar.framework.web.views.RedirectView;
-import com.opdar.stbackground.beans.ConfigureEntity;
-import com.opdar.stbackground.beans.RuleEntity;
-import com.opdar.stbackground.beans.UserEntity;
-import com.opdar.stbackground.common.Configure;
+import com.opdar.stbackground.beans.Tables;
+import com.opdar.stbackground.beans.tables.ConfigureEntity;
+import com.opdar.stbackground.beans.tables.RuleEntity;
+import com.opdar.stbackground.beans.tables.UserEntity;
 import com.opdar.stbackground.common.MapperFilter;
-import com.opdar.stbackground.customs.BeetlView;
 import com.opdar.stbackground.auth.AuthInterceptor;
 import com.opdar.stbackground.auth.AuthManagement;
 import com.opdar.stbackground.customs.SystemBeetlView;
-import com.opdar.stbackground.services.DashboardService;
 import com.opdar.stbackground.utils.Utils;
 
 import java.util.*;
@@ -52,22 +46,21 @@ public class DashboardController {
         return view;
     }
 
-    @Router
-    public View configure(){
-        return Utils.executeTableView(ConfigureEntity.class);
-    }
-
-    @Router
-    public View rules(){
-        return Utils.executeTableView(RuleEntity.class);
-    }
-
-    @Router
-    public View users(){
-        BaseDatabase database = Context.get(BaseDatabase.class);
-        IDao<?> dao = database.getDao(UserEntity.class);
-        List<?> datas = dao.setFilter(MapperFilter.LOGIN).SELECT().END().findAll();
-        Map<String, FieldModel> map = dao.getFieldNames();
-        return Utils.executeTableView(map,datas);
+    @Router("/tables/#{value}")
+    public View tables(String value){
+        try{
+            BaseDatabase database = Context.get(BaseDatabase.class);
+            IDao<?> dao = database.getDao(Tables.get(value.toUpperCase()));
+            try{
+                MapperFilter filter = MapperFilter.valueOf(MapperFilter.class,value);
+                dao.setFilter(filter);
+            }catch (Exception e){
+            }
+            List<?> datas = dao.SELECT().END().findAll();
+            Map<String, FieldModel> map = dao.getFieldNames();
+            return Utils.executeTableView(map,datas);
+        }catch (Exception e){
+            return new SystemBeetlView("tables.html",null);
+        }
     }
 }

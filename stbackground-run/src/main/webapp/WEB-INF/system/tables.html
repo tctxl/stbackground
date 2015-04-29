@@ -6,19 +6,75 @@ include("header.html"){}
 <script src="ext/assets/chosen/js/chosen.jquery.js"></script>
 <script type="text/javascript">
     $(function () {
-        $('.search-options').chosen({search_contains: true, no_results_text:'Oops, nothing found!'});
-        $('#select').collapse();
+       var searchChosen = $('.search-options').chosen({width: "100%",search_contains: true, no_results_text:'Oops, nothing found!'});
+        searchChosen.change(function (e,v) {
+            var searchFactorGroup = $('#search-factor-group');
+            if(v['selected'] != undefined){
+                var value = v['selected'];
+                if(value != '精确查询'){
+                    searchFactorGroup.append('<div class="'+value+'-factor"><p><div class="input-group fix-border"><span class="input-group-addon">'+value+'</span><input type="text" class="form-control" placeholder="是否必填 "></div></p></div>');
+                }
+            }else if(v['deselected'] != undefined){
+                var value = v['deselected'];
+                $('.'+value+'-factor').remove();
+            }
+        });
     });
 </script>
 <div class="btn-group">
-    <button type="button" class="btn btn-primary"><i class="icon-plus">新增</i></button>
-    <button type="button" class="btn btn-primary"><i class="icon-trash">删除</i></button>
-    <button type="button" class="btn btn-primary"><i class="icon-undo">修改</i></button>
-    <button type="button" class="btn btn-primary"  data-toggle="collapse" data-target="#select"><i class="icon-search">查询</i></button>
+    <button type="button" class="btn btn-primary"  data-toggle="collapse" data-target="#add"><i class="icon-plus">新增</i></button>
+    <button type="button" class="btn btn-primary"  data-toggle="collapse" data-target="#delete"><i class="icon-trash">删除</i></button>
+    <button type="button" class="btn btn-primary"  data-toggle="collapse" data-target="#modify"><i class="icon-undo">修改</i></button>
+    <button type="button" class="btn btn-primary"  data-toggle="collapse" data-parent="#automenu-group" data-target="#select"><i class="icon-search">查询</i></button>
 </div>
 <br/>
 <br/>
-<div id="select" style="clear: both;border-radius: 0px;" class="collapse in">
+<div id="automenu-group" >
+    <div id="add" data-parent="#automenu-group" class="automenu collapse " style="clear: both;border-radius: 0px;">
+        <div class="panel panel-success">
+            <div class="panel-heading">新增窗口</div>
+            <div class="panel-body">
+                <div class="alert alert-success with-icon">
+                    <i class="icon-plus-sign"></i>
+                    <div class="content">新填写完整信息后点击<strong>新增</strong>按钮来插入数据。</div>
+                </div>
+                <%
+                for(field in fields){
+                print('<div class="add"><p><div class="input-group fix-border"><span class="input-group-addon">'+field+'</span><input type="text" class="form-control" placeholder="是否必填 "></div></p></div>');
+                }
+                %>
+            </div>
+        </div>
+    </div>
+    <div id="delete"  data-parent="#automenu-group" class="automenu collapse" style="clear: both;border-radius: 0px;">
+
+        <div class="alert alert-danger with-icon">
+            <i class="icon-remove-sign"></i>
+            <div class="content">
+                <p>这是一个<strong>危险操作</strong>，点击确认按钮删除后，该条数据将<strong>不复存在</strong>，请仔细核对后再进行该操作！</p>
+
+                <button class="btn btn-danger"  data-toggle="collapse" data-target="#delete">确认删除</button>
+                <button class="btn btn-info"  data-toggle="collapse" data-target="#delete">取消操作</button>
+            </div>
+        </div>
+    </div>
+<div id="modify" data-parent="#automenu-group" class="automenu collapse" style="clear: both;border-radius: 0px;">
+    <div class="panel panel-warning">
+        <div class="panel-heading">修改窗口</div>
+        <div class="panel-body">
+            <div class="alert alert-warning with-icon">
+                <i class="icon-warning-sign"></i>
+                <div class="content">请慢慢来，不要着急。修改完成后可点击<strong>下一步</strong>进行下一条数据的修改。</div>
+            </div>
+            <%
+            for(field in fields){
+                print('<div class="add"><p><div class="input-group fix-border"><span class="input-group-addon">'+field+'</span><input type="text" class="form-control" placeholder="是否必填 "></div></p></div>');
+            }
+            %>
+        </div>
+    </div>
+</div>
+<div id="select" class="automenu collapse in" style="clear: both;border-radius: 0px;">
     <div class="panel panel-primary">
         <div class="panel-heading">查询窗口</div>
         <div class="panel-body">
@@ -26,7 +82,7 @@ include("header.html"){}
                 <i class="icon-info-sign"></i>
                 <div class="content">在<strong>下方输入框</strong>中搜索，默认为模糊查询，如需要精确查询，请勾选末尾处的<strong>"精确查询"</strong>。</div>
             </div>
-    <select data-placeholder="点击选择搜索条件" style="width:100%;" multiple class="search-options">
+    <select data-placeholder="点击选择搜索条件" multiple class="search-options">
     <option value=""></option>
     <%
     for(field in fields){
@@ -36,16 +92,13 @@ include("header.html"){}
         <option id="vague">精确查询</option>
 </select>
     <br/>
-    <br/>
 
-    <div class="input-group" style="width: 100%;">
-        <input type="text" placeholder="请输入查询内容" class="form-control">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">查询</button>
-      </span>
-    </div>
+            <div id="search-factor-group"></div>
+            <p></p>
+            <button class="btn btn-block btn-primary" type="button"><i class="icon-search"></i>确认搜索</button>
         </div>
     </div>
+</div>
 </div>
 <div class="panel panel-primary">
     <div class="panel-heading">表内容</div>

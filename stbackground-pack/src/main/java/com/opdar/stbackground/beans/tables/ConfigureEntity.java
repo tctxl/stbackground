@@ -1,4 +1,4 @@
-package com.opdar.stbackground.beans;
+package com.opdar.stbackground.beans.tables;
 
 import com.opdar.framework.db.anotations.Field;
 

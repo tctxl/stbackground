@@ -1,9 +1,7 @@
-package com.opdar.stbackground.beans;
+package com.opdar.stbackground.beans.tables;
 
 import com.opdar.framework.db.anotations.Factor;
 import com.opdar.framework.db.anotations.Field;
-import com.opdar.stbackground.auth.AuthInterceptor;
-import com.opdar.stbackground.auth.AuthManagement;
 
 import java.util.ArrayList;
 

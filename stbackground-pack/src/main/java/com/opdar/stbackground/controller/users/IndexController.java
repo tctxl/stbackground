@@ -9,12 +9,10 @@ import com.opdar.framework.web.common.Context;
 import com.opdar.framework.web.interfaces.View;
 import com.opdar.framework.web.views.RedirectView;
 import com.opdar.stbackground.auth.AuthManagement;
-import com.opdar.stbackground.beans.ConfigureEntity;
-import com.opdar.stbackground.common.Configure;
+import com.opdar.stbackground.beans.tables.ConfigureEntity;
 import com.opdar.stbackground.customs.BeetlView;
 import com.opdar.stbackground.utils.CacheUtils;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**

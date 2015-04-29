@@ -9,7 +9,7 @@ import com.opdar.framework.db.interfaces.EnumValue;
  * QQ:362116120
  */
 public enum  Configure implements EnumValue {
-    PROJECT_NAME,SSDB_IP,SSDB_PWD,SSDB_PORT,CURRENT_THEME
+    PROJECT_NAME,SSDB_IP,SSDB_PWD,SSDB_PORT,CURRENT_THEME,BASE_URL
     ;
 
     private String value;

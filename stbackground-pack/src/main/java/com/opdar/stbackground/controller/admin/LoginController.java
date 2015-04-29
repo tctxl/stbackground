@@ -8,7 +8,7 @@ import com.opdar.framework.web.anotations.Router;
 import com.opdar.framework.web.common.Context;
 import com.opdar.framework.web.views.RedirectView;
 import com.opdar.stbackground.auth.AuthManagement;
-import com.opdar.stbackground.beans.UserEntity;
+import com.opdar.stbackground.beans.tables.UserEntity;
 import com.opdar.stbackground.common.MapperFilter;
 import com.opdar.stbackground.utils.Utils;
 
@@ -26,7 +26,7 @@ public class LoginController {
         BaseDatabase database = Context.get(BaseDatabase.class);
         IDao<UserEntity> userEntityIDao = database.getDao(UserEntity.class);
         String simpleName = userEntityIDao.getSimpleTableName(UserEntity.class);
-        userEntityIDao.setFilter(MapperFilter.LOGIN).addMapper("TL.LEVEL AS LEVEL");
+        userEntityIDao.setFilter(MapperFilter.USER).addMapper("TL.LEVEL AS LEVEL");
         password = Utils.md5(password);
         UserEntity user = userEntityIDao.addMapper("TL.LEVEL AS LEVEL").SELECT()
                 .JOIN(Join.LEFT, "t_level TL", String.format("%s.LEVEL_ID = TL._ID", simpleName))

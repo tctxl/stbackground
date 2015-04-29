@@ -4,12 +4,16 @@ import com.opdar.framework.db.impl.BaseDatabase;
 import com.opdar.framework.db.interfaces.EnumValue;
 import com.opdar.framework.db.interfaces.IDao;
 import com.opdar.framework.server.base.DefaultConfig;
+import com.opdar.framework.utils.ParamsUtil;
 import com.opdar.framework.utils.Utils;
 import com.opdar.framework.web.common.Context;
+import com.opdar.stbackground.beans.Tables;
 import com.opdar.stbackground.common.Configure;
 import com.opdar.stbackground.utils.CacheUtils;
 
+import java.util.HashMap;
 import java.util.Properties;
+import java.util.Set;
 
 /**
  * Created by Jeffrey on 2015/4/22.
@@ -36,6 +40,12 @@ public class TomcatConfig extends DefaultConfig {
 
     @Override
     public void onCreate() {
+
+        Set<Class<?>> clzs = ParamsUtil.getClasses("com.opdar.stbackground.beans.tables");
+        for(Class<?> clz:clzs){
+            Tables.put(clz.getSimpleName().toUpperCase().replace("ENTITY","").replace("BEAN","").replace("POJO",""),clz);
+        }
+
         BaseDatabase database = Context.get(BaseDatabase.class);
         IDao<Configure> dao = database.getDao(Configure.class);
         dao.SELECT().END();

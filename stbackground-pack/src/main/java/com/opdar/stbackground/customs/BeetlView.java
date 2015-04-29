@@ -45,6 +45,7 @@ public class BeetlView implements View {
                         gt = new GroupTemplate(resourceLoader, cfg);
                         Map<String, Object> vars = new HashMap<String, Object>();
                         vars.put("projectName",Configure.PROJECT_NAME.getValue());
+                        vars.put("baseurl",Configure.BASE_URL.getValue());
                         gt.setSharedVars(vars);
                     } catch (IOException e) {
                         e.printStackTrace();

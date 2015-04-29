@@ -5,7 +5,6 @@ import com.opdar.framework.db.impl.FieldModel;
 import com.opdar.framework.db.interfaces.IDao;
 import com.opdar.framework.web.common.Context;
 import com.opdar.framework.web.interfaces.View;
-import com.opdar.stbackground.beans.ConfigureEntity;
 import com.opdar.stbackground.customs.SystemBeetlView;
 
 import java.security.MessageDigest;

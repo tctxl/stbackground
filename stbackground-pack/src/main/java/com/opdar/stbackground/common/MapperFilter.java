@@ -14,7 +14,7 @@ import java.util.List;
  * QQ:362116120
  */
 public enum MapperFilter implements MappingFilter {
-    LOGIN("LEVEL",null),RULE("RULES,LEVEL",null)
+    USER("LEVEL",null),RULE("RULES,LEVEL",null)
     ;
     private HashMap<String,String> redefined = new HashMap<String, String>();
     private HashSet<String> filter = new HashSet<String>();
