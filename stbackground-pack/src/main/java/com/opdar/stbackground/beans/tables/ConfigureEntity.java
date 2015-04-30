@@ -1,6 +1,7 @@
 package com.opdar.stbackground.beans.tables;
 
 import com.opdar.framework.db.anotations.Field;
+import com.opdar.stbackground.annotation.Desc;
 
 /**
  * Created by Jeffrey on 2015/4/27.
@@ -8,6 +9,7 @@ import com.opdar.framework.db.anotations.Field;
  * Site:opdar.com
  * QQ:362116120
  */
+@Desc("配置表")
 public class ConfigureEntity {
     @Field("_id")
     private String id;

@@ -48,8 +48,8 @@ public class SystemBeetlView implements View {
     }
 
     String templatePath = null;
-    Map<String,Object> dataModels = null;
-    public SystemBeetlView(String templatePath, Map<String, Object> dataModels){
+    Map<String,?> dataModels = null;
+    public SystemBeetlView(String templatePath, Map<String, ?> dataModels){
         this.templatePath = templatePath;
         this.dataModels = dataModels;
     }

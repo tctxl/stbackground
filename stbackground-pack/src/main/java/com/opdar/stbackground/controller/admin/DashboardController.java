@@ -50,7 +50,7 @@ public class DashboardController {
     public View tables(String value){
         try{
             BaseDatabase database = Context.get(BaseDatabase.class);
-            IDao<?> dao = database.getDao(Tables.get(value.toUpperCase()));
+            IDao<?> dao = database.getDao(Tables.get(value.toUpperCase()).getTableEntityCls());
             try{
                 MapperFilter filter = MapperFilter.valueOf(MapperFilter.class,value);
                 dao.setFilter(filter);
@@ -61,6 +61,17 @@ public class DashboardController {
             return Utils.executeTableView(map,datas);
         }catch (Exception e){
             return new SystemBeetlView("tables.html",null);
+        }
+    }
+
+    @Router
+    public View tablelist(){
+        try{
+            HashMap<String,Object> dataModels = new HashMap<String, Object>();
+            dataModels.put("tables",Tables.tables);
+            return new SystemBeetlView("tablelist.html",dataModels);
+        }catch (Exception e){
+            return new SystemBeetlView("tablelist.html",null);
         }
     }
 }

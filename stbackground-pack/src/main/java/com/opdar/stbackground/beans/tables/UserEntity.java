@@ -2,6 +2,7 @@ package com.opdar.stbackground.beans.tables;
 
 import com.opdar.framework.db.anotations.Field;
 import com.opdar.framework.db.anotations.Table;
+import com.opdar.stbackground.annotation.Desc;
 
 import java.sql.Timestamp;
 
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
  * QQ:362116120
  */
 @Table("test.t_users")
+@Desc("用户表")
 public class UserEntity {
 
     @Field("_id")

@@ -2,6 +2,7 @@ package com.opdar.stbackground.beans.tables;
 
 import com.opdar.framework.db.anotations.Factor;
 import com.opdar.framework.db.anotations.Field;
+import com.opdar.stbackground.annotation.Desc;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
  * Site:opdar.com
  * QQ:362116120
  */
+@Desc("权限表")
 public class RuleEntity {
     @Field("_ID")
     private Integer id;

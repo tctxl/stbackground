@@ -9,12 +9,35 @@ import java.util.HashMap;
  * QQ:362116120
  */
 public class Tables {
-    public static HashMap<String,Class<?>> tables = new HashMap<String, Class<?>>();
-    public static void put(String simpleName,Class<?> clz){
-        tables.put(simpleName,clz);
+    public static class Table{
+        private Class<?> tableEntityCls;
+        private String desc;
+
+        public Class<?> getTableEntityCls() {
+            return tableEntityCls;
+        }
+
+        public void setTableEntityCls(Class<?> tableEntityCls) {
+            this.tableEntityCls = tableEntityCls;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public void setDesc(String desc) {
+            this.desc = desc;
+        }
+    }
+    public static HashMap<String,Table> tables = new HashMap<String, Table>();
+    public static void put(String simpleName,Class<?> clz,String desc){
+        Table table = new Table();
+        table.tableEntityCls = clz;
+        table.desc = desc;
+        tables.put(simpleName,table);
     }
 
-    public static Class<?> get(String name){
+    public static Table get(String name){
         return tables.get(name);
     }
 }

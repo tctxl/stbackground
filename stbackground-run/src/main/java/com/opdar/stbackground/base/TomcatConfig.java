@@ -7,6 +7,7 @@ import com.opdar.framework.server.base.DefaultConfig;
 import com.opdar.framework.utils.ParamsUtil;
 import com.opdar.framework.utils.Utils;
 import com.opdar.framework.web.common.Context;
+import com.opdar.stbackground.annotation.Desc;
 import com.opdar.stbackground.beans.Tables;
 import com.opdar.stbackground.common.Configure;
 import com.opdar.stbackground.utils.CacheUtils;
@@ -43,7 +44,9 @@ public class TomcatConfig extends DefaultConfig {
 
         Set<Class<?>> clzs = ParamsUtil.getClasses("com.opdar.stbackground.beans.tables");
         for(Class<?> clz:clzs){
-            Tables.put(clz.getSimpleName().toUpperCase().replace("ENTITY","").replace("BEAN","").replace("POJO",""),clz);
+            Desc desc = clz.getAnnotation(Desc.class);
+            if(desc != null)
+            Tables.put(clz.getSimpleName().toUpperCase().replace("ENTITY","").replace("BEAN","").replace("POJO",""),clz,desc.value());
         }
 
         BaseDatabase database = Context.get(BaseDatabase.class);
