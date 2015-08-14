@@ -1,0 +1,15 @@
+<%
+include("header.html"){}
+%>
+<div class="row">
+<%
+    for(entry in tables){
+%>
+<div class="col-md-1"><div class="panel panel-primary"><a href="dashboard/tables/${entry.key}.html">${entry.value.desc}</a></div></div>
+<%
+    }
+%>
+</div>
+<%
+include("footer.html"){}
+%>

@@ -41,8 +41,7 @@ public class TomcatConfig extends DefaultConfig {
 
     @Override
     public void onCreate() {
-
-        Set<Class<?>> clzs = ParamsUtil.getClasses("com.opdar.stbackground.beans.tables");
+        Set<Class<?>> clzs = ParamsUtil.getClasses(Thread.currentThread().getContextClassLoader(),"com.opdar.stbackground.beans.tables");
         for(Class<?> clz:clzs){
             Desc desc = clz.getAnnotation(Desc.class);
             if(desc != null)

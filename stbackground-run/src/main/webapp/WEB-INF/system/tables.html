@@ -39,8 +39,10 @@ include("header.html"){}
                     <div class="content">新填写完整信息后点击<strong>新增</strong>按钮来插入数据。</div>
                 </div>
                 <%
-                for(field in fields){
-                print('<div class="add"><p><div class="input-group fix-border"><span class="input-group-addon">'+field+'</span><input type="text" class="form-control" placeholder="是否必填 "></div></p></div>');
+
+                for(var i=0;i<fields.~size;i++){
+                var field = fields[i];
+                print('<div class="add"><p><div class="input-group fix-border"><span class="input-group-addon">'+descs[i]+'</span><input type="text" class="form-control" placeholder="是否必填 "></div></p></div>');
                 }
                 %>
             </div>
@@ -67,8 +69,9 @@ include("header.html"){}
                 <div class="content">请慢慢来，不要着急。修改完成后可点击<strong>下一步</strong>进行下一条数据的修改。</div>
             </div>
             <%
-            for(field in fields){
-                print('<div class="add"><p><div class="input-group fix-border"><span class="input-group-addon">'+field+'</span><input type="text" class="form-control" placeholder="是否必填 "></div></p></div>');
+            for(var i=0;i<fields.~size;i++){
+            var field = fields[i];
+                print('<div class="add"><p><div class="input-group fix-border"><span class="input-group-addon">'+descs[i]+'</span><input type="text" class="form-control" placeholder="是否必填 "></div></p></div>');
             }
             %>
         </div>
@@ -85,8 +88,9 @@ include("header.html"){}
     <select data-placeholder="点击选择搜索条件" multiple class="search-options">
     <option value=""></option>
     <%
-    for(field in fields){
-        print('<option>'+field+'</option>');
+        for(var i=0;i<fields.~size;i++){
+        var field = fields[i];
+        print('<option>'+descs[i]+'</option>');
     }
     %>
         <option id="vague">精确查询</option>
@@ -109,11 +113,12 @@ include("header.html"){}
             var width = '20%';
             if(fields.~size>5){ width = '300'; }
 
-            for(field in fields){
-                if(fieldLP.index == 1){
-                    print('<th data-width="100">'+field+'</th>');
+        for(var i=0;i<fields.~size;i++){
+            var field = fields[i];
+                if(i == 1){
+                    print('<th data-width="300">'+descs[i]+'</th>');
                 }else{
-                    print('<th class="flex-col" data-width="'+width+'">'+field+'</th>');
+                    print('<th class="flex-col" data-width="'+width+'">'+descs[i]+'</th>');
                 }
             }
         %>
@@ -138,8 +143,7 @@ include("header.html"){}
     $('#datatable').datatable({
         checkable: true,
         sortable: true,
-        flexHeadDrag:true,
-        minFixedLeftWidth: 100
+        flexHeadDrag:true
     });
 </script>
 <style>
