@@ -172,4 +172,4 @@ CREATE TABLE `t_users` (
 -- ----------------------------
 -- Records of t_users
 -- ----------------------------
-INSERT INTO `t_users` VALUES ('10000', 'shijunfan@163.com', 'e10adc3949ba59abbe56e057f20f883e', '小石头', 'Public/imgs/w4.jpg', '13818500083', '9', '0', '2015-03-11 18:46:27', '100', '0');
+INSERT INTO `t_users` VALUES ('10000', 'test@opdar.com', 'e10adc3949ba59abbe56e057f20f883e', '小石头', 'Public/imgs/w4.jpg', '13818500083', '9', '0', '2015-03-11 18:46:27', '100', '0');
