@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  * QQ:362116120
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE})
+@Target({ElementType.TYPE, ElementType.FIELD})
 public @interface Desc {
     String value();
 }

@@ -5,8 +5,10 @@ import com.opdar.framework.db.impl.FieldModel;
 import com.opdar.framework.db.interfaces.IDao;
 import com.opdar.framework.web.common.Context;
 import com.opdar.framework.web.interfaces.View;
+import com.opdar.stbackground.annotation.Desc;
 import com.opdar.stbackground.customs.SystemBeetlView;
 
+import java.lang.reflect.Field;
 import java.security.MessageDigest;
 import java.util.*;
 
@@ -33,14 +35,21 @@ public class Utils {
     public static View executeTableView(Map<String, FieldModel> map,Object datas){
         List<String> fields = new LinkedList<String>();
         List<String> pNames = new LinkedList<String>();
+        List<String> descs = new LinkedList<String>();
         for (Iterator<Map.Entry<String, FieldModel>> it = map.entrySet().iterator();it.hasNext();){
             Map.Entry<String, FieldModel> entry = it.next();
-            fields.add(entry.getValue().getMapping());
-            pNames.add(entry.getKey());
+            Field field= entry.getValue().getField();
+            Desc desc = field.getAnnotation(Desc.class);
+            if(desc != null){
+                fields.add(entry.getValue().getMapping());
+                pNames.add(entry.getKey());
+                descs.add(desc.value());
+            }
         }
         Map<String, Object> result = Utils.productDataModels("tables",datas);
         result.put("fields",fields);
         result.put("pNames",pNames);
+        result.put("descs",descs);
         return new SystemBeetlView("tables.html",result);
     }
 

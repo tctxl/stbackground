@@ -12,26 +12,36 @@ import java.util.ArrayList;
  * Site:opdar.com
  * QQ:362116120
  */
-@Desc("权限表")
+@Desc("权限管理")
 public class RuleEntity {
     @Field("_ID")
+    @Desc("权限ID")
     private Integer id;
     @Field("RULE_NAME")
+    @Desc("名称")
     private String name;
     @Field("RULE_DESCRIPTION")
+    @Desc("描述")
     private String description;
     @Field("RULE_PARENT")
+    @Desc("父级权限ID")
     private Integer parent;
     @Field("RULE_ICON")
+    @Desc("图标")
     private String icon;
     @Field("RULE_TYPE")
+    @Desc("最后一项")
     private Integer type;
     @Field("RULE_ACTION")
+    @Desc("行为")
     private String action;
     private String accessory;
     private String accessoryName;
+    @Desc("模块")
     private String module;
+    @Desc("有效")
     private Integer disable;
+    @Desc("级别")
     private String level;
 
     /**

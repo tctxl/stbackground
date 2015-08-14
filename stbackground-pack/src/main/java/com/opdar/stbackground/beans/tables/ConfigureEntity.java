@@ -9,13 +9,17 @@ import com.opdar.stbackground.annotation.Desc;
  * Site:opdar.com
  * QQ:362116120
  */
-@Desc("配置表")
+@Desc("配置信息管理")
 public class ConfigureEntity {
     @Field("_id")
     private String id;
+    @Desc("名称")
     private String configureName;
+    @Desc("值")
     private String configureValue;
+    @Desc("描述")
     private String description ;
+    @Desc("版本")
     private Integer version;
 
     public String getId() {
